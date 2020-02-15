@@ -1,11 +1,11 @@
-const createMemoryCard = (nameClass) => {
+const createMemoryCard = (src, alt, nameClass) => {
 
   return (`
   <article class = "memory-card ${nameClass} ">
     <img
       class= "icon"
-      src= "${nameClass === "-front" ? "./images/icon-js.png" : "./images/icon-collabcode.svg"}"
-      alt='Gueio Mascote da CollabCode'
+      src= "${src}"
+      alt="${alt}    
       onclick = "handleClick()">
     </img>
   </article>
