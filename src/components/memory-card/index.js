@@ -1,21 +1,8 @@
-const createMemoryCard = ({ src, alt, nameClass }) =>
-  `<article class = "memory-card ${nameClass} ">
-    <img
-      class= "icon"
-      src= "${src}"
-      alt="${alt}    
-      onclick = "handleClick()">
-    </img>
-  </article>
-`;
+function memoryCard() {
+  const $head = document.querySelector("head");
+  const $style = document.createElement("style")
 
-const handleClick = () => {
-  createMemoryCard.classList.toogle("-front")
-}
-
-const $head = document.querySelector("head");
-const $style = document.createElement("style")
-$style.textContent = `
+  $style.textContent = `
   .memory-card{
     width: 155px;
     height: 155px;
@@ -53,4 +40,28 @@ $style.textContent = `
   }
   
 `
-$head.insertBefore($style, null)
+  $head.insertBefore($style, null)
+
+
+
+  return ({ src, alt, nameClass }) =>
+    `<article class = "memory-card ${nameClass} ">
+    <img
+      class= "icon"
+      src= "${src}"
+      alt="${alt}    
+      onclick = "handleClick()">
+    </img>
+  </article>
+`
+
+};
+
+
+
+
+/*const handleClick = () => {
+  console.log("deu certo")
+  //createMemoryCard.classList.toogle("-front")
+}*/
+
