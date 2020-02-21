@@ -83,6 +83,32 @@ function memoryCard() {
 
 
 
+let score = 0;
 
-const handleClick = ($conponent) => $conponent.classList.toggle("-active")
+const handleClick = $conponent => {
 
+  if (!$conponent.classList.contains("-active")) {
+    if (qtdMemoryCardClic <= 1) {
+      $conponent.classList.toggle("-active")
+    }
+
+
+    if (qtdMemoryCardClic === 1) {
+      qtdMemoryCardClic = 0
+      const $memoryCards = document.querySelectorAll(".memory-card.-active");
+      if ($memoryCards[0].querySelector(".-front .icon").getAttribute("src") ===
+        $memoryCards[1].querySelector(".-front .icon").getAttribute("src")) {
+        score++
+        console.log("seus pontos : ", score)
+      } else {
+        setTimeout(() => {
+          const verificaActive = document.querySelectorAll(".memory-card.-active")
+          verificaActive.forEach(removeActive => {
+            removeActive.classList.remove("-active")
+          })
+        }, 1000)
+      }
+    }
+  }
+
+}
