@@ -1,14 +1,12 @@
 function memoryCard() {
   const $head = document.querySelector("head");
-  const $style = document.createElement("style")
+  const $style = document.createElement("style");
 
   $style.textContent = `
-
   .memory-card{
     width: 155px;
     height: 155px;
     position: relative
-    
   }
 
   .memory-card .-card{
@@ -25,11 +23,15 @@ function memoryCard() {
     position:absolute;
   }
 
-  .memory-card.-active .-card{
+  .memory-card.-active .-card,
+  .memory-card.-score .-card{
     display: none
   }
 
-  memory-card.-active .-card.-front{
+  
+
+  memory-card.-active .-card.-front,
+  memory-card.-score .-card.-front{
     display: flex
   }
   
@@ -56,8 +58,8 @@ function memoryCard() {
     position: absolute;
     transform: translateY(-7px)
   }
-`
-  $head.insertBefore($style, null)
+`;
+  $head.insertBefore($style, null);
 
 
 
@@ -86,29 +88,41 @@ function memoryCard() {
 let score = 0;
 
 const handleClick = $conponent => {
-
   if (!$conponent.classList.contains("-active")) {
-    if (qtdMemoryCardClic <= 1) {
-      $conponent.classList.toggle("-active")
-    }
+    activeMemoryCard ($conponent);
+    checkMemoryCard();
+  }
+};
 
 
-    if (qtdMemoryCardClic === 1) {
-      qtdMemoryCardClic = 0
-      const $memoryCards = document.querySelectorAll(".memory-card.-active");
-      if ($memoryCards[0].querySelector(".-front .icon").getAttribute("src") ===
-        $memoryCards[1].querySelector(".-front .icon").getAttribute("src")) {
-        score++
-        console.log("seus pontos : ", score)
-      } else {
-        setTimeout(() => {
-          const verificaActive = document.querySelectorAll(".memory-card.-active")
-          verificaActive.forEach(removeActive => {
-            removeActive.classList.remove("-active")
-          })
-        }, 1000)
-      }
+function activeMemoryCard ($conponent)  {
+  if (qtdMemoryCardClic <= 1) {
+    $conponent.classList.add("-active")
+  };
+};
+
+function checkMemoryCard(){
+  if (qtdMemoryCardClic === 1) { 
+    const $activeMemoryCard = document.querySelectorAll(".memory-card.-active")
+    
+    if (
+      $activeMemoryCard[0].querySelector(".-front .icon").getAttribute("src") ===
+      $activeMemoryCard[1].querySelector(".-front .icon").getAttribute("src")
+    ) {
+      score++;
+      $activeMemoryCard.forEach($memoryCard => {
+        $memoryCard.classList.add("-score");
+        $memoryCard.classList.remove("-active")
+      });
+
+      console.log("seus pontos : ", score)
+    } else {
+      setTimeout(() => {
+        $activeMemoryCard.forEach(removeActive => {
+          removeActive.classList.remove("-active")
+        });
+        qtdMemoryCardClic = 0
+      }, 1000)
     }
   }
-
 }
